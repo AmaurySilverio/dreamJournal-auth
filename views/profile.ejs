@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Dream Journal</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/d74d0e70eb.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="page-header text-center">
+      <h1><span class="fa fa-anchor"></span> Profile Page:</h1>
+    </div>
+
+    <div class="row">
+
+      <!-- LOCAL INFORMATION -->
+      <div class="col-sm-6">
+        <div class="well">
+          <h3><span class="fa fa-user"></span> Local</h3>
+
+          <% if (user.local.email) { %>
+            <p>
+              <strong>email</strong>: <%= user.local.email %><br>
+            </p>
+            <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+            <a href="/unlink/local" class="btn btn-default">Unlink</a>
+            <% } else { %>
+              <a href="/connect/local" class="btn btn-default">Connect Local</a>
+              <% } %>
+
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <h2>Add a message</h2>
+        <% if (user.local.email) { %>
+          <form action="/dreamJournal" method="POST">
+            <textarea type="text" class="input" placeholder="I created the mona lisa on vs code last night..."
+              name="journalEntry"></textarea>
+            <button type="submit">Submit</button>
+          </form>
+          <% } %>
+
+            <h3>Journal Entries:</h3>
+            <ul class="entries">
+              <% for(var i=0; i<entries.length; i++) {%>
+                <li class="message">
+                  <span>
+                    <%= entries[i].entry %>
+                  </span>
+                  <span>
+                    <%= entries[i].date %>
+                  </span>
+                  <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+                </li>
+                <% } %>
+            </ul>
+      </div>
+
+
+    </div>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>
